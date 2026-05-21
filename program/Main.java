@@ -28,7 +28,6 @@ public class Main {
             }
 
             reader.close();
-https://www.onlinegdb.com/#tab-stdin
         } catch (IOException e) {
             System.out.println("Erro ao ler o arquivo: " + e.getMessage());
         }
@@ -101,6 +100,20 @@ https://www.onlinegdb.com/#tab-stdin
         }
     }
 
+    public static void mostrarCoordenadas(Pilha<Coordenada> caminho, int cap) throws Exception {
+        Pilha<Coordenada> pilhaInvertida = new Pilha<>(cap);
+        
+        while (!caminho.isVazia()) {
+            pilhaInvertida.guardeUmItem(caminho.removaUmItem());
+        }
+        
+        System.out.println("\nCoordenadas do caminho percorrido:");
+        while (!pilhaInvertida.isVazia()) {
+            Coordenada coord = pilhaInvertida.removaUmItem();
+            System.out.println("[" + coord.getLinha() + ", " + coord.getColuna() + "]");
+            caminho.guardeUmItem(coord);
+        }
+    }
 
     public static void main(String[] args) throws Exception {
             Scanner teclado = new Scanner(System.in);
@@ -153,10 +166,11 @@ https://www.onlinegdb.com/#tab-stdin
 
         if (achouSaida) {
             System.out.println("Saida encontrada! Caminho marcado com '*':");
+            imprimirLabirinto();
+            mostrarCoordenadas(caminho, cap);
         } else {
             System.out.println("Nao existe caminho ate a saida.");
+            imprimirLabirinto();
         }
-
-        imprimirLabirinto();
     }
 }
